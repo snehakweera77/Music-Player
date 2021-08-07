@@ -3,9 +3,9 @@ package com.example.musicplayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class Favourite : AppCompatActivity() {
+class PlaylistActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_favourite)
+        setContentView(R.layout.activity_playlist)
     }
 }
