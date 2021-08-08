@@ -51,16 +51,17 @@
                 android:textAllCaps="false"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/totalSongs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/total_songs"
             android:textColor="@color/black"
             android:layout_margin="10dp"/>
-        <view class="androidx.appcompat.app.AlertController$RecycleListView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/musicRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-        </view>
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView

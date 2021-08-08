@@ -5,9 +5,11 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicplayer.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
@@ -15,6 +17,7 @@ import kotlin.system.exitProcess
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var musicAdapter: MusicAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestRunTimePermission()
@@ -25,6 +28,15 @@ class MainActivity : AppCompatActivity() {
         binding.root.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val musicList = ArrayList<String>()
+        for (i in 1..5)
+            musicList.add("ddv")
+        binding.musicRV.setHasFixedSize(true)
+        binding.musicRV.setItemViewCacheSize(13)
+        binding.musicRV.layoutManager = LinearLayoutManager(this)
+        musicAdapter = MusicAdapter(this, musicList)
+        binding.musicRV.adapter = musicAdapter
+        binding.totalSongs.text = "Total Songs : " + musicAdapter.itemCount
         binding.shuffleBtn.setOnClickListener{
             startActivity(Intent(this@MainActivity, PlayerActivity::class.java))
         }
