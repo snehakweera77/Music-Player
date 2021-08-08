@@ -13,5 +13,11 @@
     <string name="equalizer_btn">Equalizer</string>
     <string name="timer_btn">Timer</string>
     <string name="share_btn">Share</string>
-
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="nav_text">Welcome to music</string>
+    <string name="feedback">Feedback</string>
+    <string name="setting">Setting</string>
+    <string name="about">About</string>
+    <string name="exit">Exit</string>
 </resources>
