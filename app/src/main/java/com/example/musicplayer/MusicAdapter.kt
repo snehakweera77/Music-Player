@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.databinding.MusicViewBinding
 
-class MusicAdapter(private val context:Context, private val musicList: ArrayList<String>) : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
+class MusicAdapter(private val context:Context, private val musicList: ArrayList<Music>) : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
     class MyHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.songNameMV
         val album = binding.songAlbumMV
@@ -20,7 +20,9 @@ class MusicAdapter(private val context:Context, private val musicList: ArrayList
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        holder.title.text = musicList(position)
+        holder.title.text = musicList[position].title
+        holder.album.text = musicList[position].album
+        holder.duration.text = musicList[position].duration.toString()
     }
 
     override fun getItemCount(): Int {
