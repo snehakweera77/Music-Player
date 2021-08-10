@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PlayerActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_marginTop="2dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +21,8 @@
             android:background="@android:color/transparent"
             android:layout_marginStart="5dp"
             app:tint="@color/black"
-            android:contentDescription="@string/back_btn" />
+            android:contentDescription="@string/back_btn"
+            android:padding="5dp"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
