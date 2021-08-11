@@ -27,6 +27,12 @@ class PlayerActivity : AppCompatActivity() {
             else
                 playMusic()
         }
+        binding.previousBtn.setOnClickListener{
+            prevNextSong(true)
+        }
+        binding.nextBtn.setOnClickListener{
+            prevNextSong(false)
+        }
         }
     private fun setLayout() {
         Glide.with(this)
@@ -68,5 +74,30 @@ private fun playMusic() {
         isPlaying = false
         mediaPlayer!!.stop()
     }
-
+    private fun prevNextSong(increment: Boolean){
+        setSongPosition(increment)
+        if (increment){
+            setLayout()
+            createMediaPlayer()
+        }
+        else{
+            --songPosition
+            setLayout()
+            createMediaPlayer()
+        }
+    }
+    private fun setSongPosition(increment: Boolean){
+        if (increment){
+            if (musicListPA.size - 1 == songPosition)
+                songPosition = 0
+            else
+                ++songPosition
+        }
+        else{
+            if (0 == songPosition)
+                songPosition = musicListPA.size - 1
+            else
+                --songPosition
+        }
+    }
 }
