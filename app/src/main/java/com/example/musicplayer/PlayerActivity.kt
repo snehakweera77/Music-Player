@@ -117,6 +117,7 @@ private fun playMusic() {
         val binder = service as MusicService.MyBinder
         musicService = binder.currentService()
         createMediaPlayer()
+        musicService!!.showNotification()
     }
 
     override fun onServiceDisconnected(p0: ComponentName?) {
