@@ -22,7 +22,7 @@ class PlayerActivity : AppCompatActivity() {
         setContentView(binding.root)
         initializeLayout()
         binding.playPauseBtn.setOnClickListener{
-            if (isPlaying)
+            if (isPlaying == true)
                 pauseMusic()
             else
                 playMusic()
@@ -55,9 +55,16 @@ class PlayerActivity : AppCompatActivity() {
     private fun initializeLayout(){
         PlayerActivity.songPosition = intent.getIntExtra("index", 0)
         when(intent.getStringExtra("class")){
-            "MusicA dapter" -> {
-                PlayerActivity.musicListPA = ArrayList()
-                PlayerActivity.musicListPA.addAll(MainActivity.MusicListMA)
+            "MusicAdapter" -> {
+                musicListPA = ArrayList()
+                musicListPA.addAll(MainActivity.MusicListMA)
+                setLayout()
+                createMediaPlayer()
+            }
+            "MainActivity" -> {
+                musicListPA = ArrayList()
+                musicListPA.addAll(MainActivity.MusicListMA)
+                musicListPA.shuffle()
                 setLayout()
                 createMediaPlayer()
             }
@@ -72,16 +79,16 @@ private fun playMusic() {
     private fun pauseMusic() {
         binding.playPauseBtn.setIconResource(R.drawable.ic_play_icon)
         isPlaying = false
-        mediaPlayer!!.stop()
+        mediaPlayer!!.pause()
     }
     private fun prevNextSong(increment: Boolean){
-        setSongPosition(increment)
         if (increment){
+            setSongPosition(increment)
             setLayout()
             createMediaPlayer()
         }
         else{
-            --songPosition
+            setSongPosition(increment)
             setLayout()
             createMediaPlayer()
         }
