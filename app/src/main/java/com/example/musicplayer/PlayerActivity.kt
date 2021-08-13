@@ -1,5 +1,6 @@
 package com.example.musicplayer
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
@@ -17,8 +18,9 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
         var songPosition: Int = 0
         var isPlaying: Boolean = false
         var musicService:MusicService?=null
+        @SuppressLint("StaticFieldLeak")
+        lateinit var binding: ActivityPlayerBinding
     }
-    private lateinit var binding: ActivityPlayerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.coolPink)
@@ -77,12 +79,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
 }
 private fun playMusic() {
     binding.playPauseBtn.setIconResource(R.drawable.ic_pause_icon)
+    musicService!!.showNotification(R.drawable.ic_pause_icon)
     isPlaying = true
     musicService!!.mediaPlayer!!.start()
 }
 
     private fun pauseMusic() {
         binding.playPauseBtn.setIconResource(R.drawable.ic_play_icon)
+        musicService!!.showNotification(R.drawable.ic_play_icon)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
     }
@@ -117,7 +121,7 @@ private fun playMusic() {
         val binder = service as MusicService.MyBinder
         musicService = binder.currentService()
         createMediaPlayer()
-        musicService!!.showNotification()
+        musicService!!.showNotification(R.drawable.ic_pause_icon)
     }
 
     override fun onServiceDisconnected(p0: ComponentName?) {
