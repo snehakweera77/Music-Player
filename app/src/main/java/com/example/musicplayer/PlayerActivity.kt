@@ -8,6 +8,7 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.widget.SeekBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.ActivityPlayerBinding
@@ -42,6 +43,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
         binding.nextBtn.setOnClickListener{
             prevNextSong(false)
         }
+        binding.seekBarPA.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) musicService!!.mediaPlayer!!.seekTo(progress)
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+
+        })
         }
     private fun setLayout() {
         Glide.with(this)
@@ -59,7 +68,11 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
             musicService!!.mediaPlayer!!.start()
             isPlaying = true
             binding.playPauseBtn.setIconResource(R.drawable.ic_pause_icon)
+            binding.tvSeekBarStart.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+            binding.tvSeekBarEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
             musicService!!.showNotification(R.drawable.ic_pause_icon)
+            binding.seekBarPA.progress = 0
+            binding.seekBarPA.max = musicService!!.mediaPlayer!!.duration
         } catch (e: Exception){return}
     }
     private fun initializeLayout(){

@@ -65,7 +65,11 @@ class MusicService:Service() {
             PlayerActivity.musicService!!.mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
             PlayerActivity.musicService!!.mediaPlayer!!.prepare()
             PlayerActivity.binding.playPauseBtn.setIconResource(R.drawable.ic_pause_icon)
+            PlayerActivity.binding.tvSeekBarStart.text = formatDuration(PlayerActivity.musicService!!.mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.tvSeekBarEnd.text = formatDuration(PlayerActivity.musicService!!.mediaPlayer!!.duration.toLong())
             PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause_icon)
+            PlayerActivity.binding.seekBarPA.progress = 0
+            PlayerActivity.binding.seekBarPA.max = PlayerActivity.musicService!!.mediaPlayer!!.duration
         } catch (e: Exception){return}
     }
 }
