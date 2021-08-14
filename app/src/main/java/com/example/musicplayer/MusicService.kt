@@ -58,4 +58,14 @@ class MusicService:Service() {
             .build()
         startForeground(5, notification)
     }
+    fun createMediaPlayer(){
+        try {
+            if (PlayerActivity.musicService!!.mediaPlayer == null) PlayerActivity.musicService!!.mediaPlayer = MediaPlayer()
+            PlayerActivity.musicService!!.mediaPlayer!!.reset()
+            PlayerActivity.musicService!!.mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+            PlayerActivity.musicService!!.mediaPlayer!!.prepare()
+            PlayerActivity.binding.playPauseBtn.setIconResource(R.drawable.ic_pause_icon)
+            PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause_icon)
+        } catch (e: Exception){return}
+    }
 }
