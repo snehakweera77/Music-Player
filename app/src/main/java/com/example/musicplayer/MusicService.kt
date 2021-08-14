@@ -7,7 +7,9 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.Binder
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 
@@ -15,6 +17,7 @@ class MusicService:Service() {
     private var myBinder = MyBinder()
     var mediaPlayer:MediaPlayer?=null
     private lateinit var mediaSession: MediaSessionCompat
+    private lateinit var runnable: Runnable
     override fun onBind(p0: Intent?): IBinder? {
         mediaSession = MediaSessionCompat(baseContext, "My Music")
         return myBinder
@@ -71,5 +74,14 @@ class MusicService:Service() {
             PlayerActivity.binding.seekBarPA.progress = 0
             PlayerActivity.binding.seekBarPA.max = PlayerActivity.musicService!!.mediaPlayer!!.duration
         } catch (e: Exception){return}
+    }
+    fun seekBarSetup(){
+        runnable = Runnable {
+            PlayerActivity.binding.tvSeekBarStart.text = formatDuration(PlayerActivity.musicService!!.mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.seekBarPA.progress = mediaPlayer!!.currentPosition
+            Handler(Looper.getMainLooper()).postDelayed(runnable, 200)
+        }
+        Handler(Looper.getMainLooper()).postDelayed(runnable, 0)
+
     }
 }
