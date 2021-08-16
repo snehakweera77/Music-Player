@@ -10,5 +10,9 @@ class PlaylistActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(R.style.coolPink)
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
-        setContentView(binding.root)    }
+        setContentView(binding.root)
+        binding.backBtnPLA.setOnClickListener {
+            finish()
+        }
+    }
 }

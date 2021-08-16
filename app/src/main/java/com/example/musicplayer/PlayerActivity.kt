@@ -61,7 +61,9 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 repeat = false
                 binding.repeatBtnPA.setColorFilter((ContextCompat.getColor(this, R.color.pink)))
             }
-
+        }
+        binding.backBtnPA.setOnClickListener {
+            finish()
         }
         }
     private fun setLayout() {
