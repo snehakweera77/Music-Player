@@ -156,6 +156,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/timer_btn" />
         <ImageButton
+            android:id="@+id/shareBtnPA"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_share_icon"
