@@ -9,12 +9,14 @@ import android.media.audiofx.AudioEffect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.ActivityPlayerBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
     companion object {
@@ -69,12 +71,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         }
         binding.equalizerBtnPA.setOnClickListener {
             try {
-                val EqIntent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
-                EqIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, musicService!!.mediaPlayer!!.audioSessionId)
-                EqIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, baseContext.packageName)
-                EqIntent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
-                startActivityForResult(EqIntent, 1)
+                val eqIntent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
+                eqIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, musicService!!.mediaPlayer!!.audioSessionId)
+                eqIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, baseContext.packageName)
+                eqIntent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
+                startActivityForResult(eqIntent, 1)
             } catch (e : Exception) {Toast.makeText(this, "Not supported", Toast.LENGTH_SHORT).show()}
+        }
+        binding.timerBtnPA.setOnClickListener {
+            showBottomSheetDialog()
         }
         }
     private fun setLayout() {
@@ -171,5 +176,22 @@ private fun playMusic() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 || requestCode == RESULT_OK)
             return
+    }
+    private fun showBottomSheetDialog() {
+        val dialog = BottomSheetDialog(this)
+        dialog.setContentView(R.layout.bottom_sheet_dialog)
+        dialog.show()
+        dialog.findViewById<LinearLayout>(R.id.min_15)?.setOnClickListener{
+            Toast.makeText(baseContext, "15", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        dialog.findViewById<LinearLayout>(R.id.min_30)?.setOnClickListener{
+            Toast.makeText(baseContext, "30", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        dialog.findViewById<LinearLayout>(R.id.min_60)?.setOnClickListener{
+            Toast.makeText(baseContext, "60", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
     }
 }
