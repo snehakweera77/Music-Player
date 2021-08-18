@@ -16,10 +16,7 @@ class NotificationReceiver: BroadcastReceiver() {
             ApplicationClass.PLAY -> if (PlayerActivity.isPlaying) pauseMusic() else playMusic()
             ApplicationClass.NEXT -> prevNextSong(false, context!!)
             ApplicationClass.EXIT ->{
-                PlayerActivity.musicService!!.stopForeground(true)
-                PlayerActivity.musicService!!.mediaPlayer!!.release()
-                PlayerActivity.musicService = null
-                exitProcess(1)
+                exitApplication()
             }
         }
     }
