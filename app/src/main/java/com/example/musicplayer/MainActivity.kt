@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var musicAdapter: MusicAdapter
     companion object{
         lateinit var MusicListMA : ArrayList<Music>
+        lateinit var musicListSearch : ArrayList<Music>
+        var search : Boolean = false
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,9 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeLayout() {
-        /*val list = ArrayList<String>()
-        for (i in 1 .. 10)
-            list.add("sdd")*/
+        search = false
         MusicListMA = getAllAudio()
         binding.musicRV.setHasFixedSize(true)
         binding.musicRV.setItemViewCacheSize(13)
@@ -165,7 +165,16 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Toast.makeText(this@MainActivity, newText.toString(), Toast.LENGTH_SHORT).show()
+                musicListSearch = ArrayList()
+                if (newText != null) {
+                    val userInput = newText.lowercase()
+                    for (song in MusicListMA) {
+                        if (song.title.lowercase().contains(userInput))
+                            musicListSearch.add(song)
+                    }
+                    search = true
+                    musicAdapter.updateMusicList(musicListSearch)
+                }
                 return true
             }
 
