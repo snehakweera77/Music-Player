@@ -43,6 +43,12 @@ class NotificationReceiver: BroadcastReceiver() {
             .apply(RequestOptions().placeholder(R.drawable.ic_back_icon).centerCrop())
             .into(PlayerActivity.binding.songImgPA)
         PlayerActivity.binding.songNamePA.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+        Glide.with(context)
+            .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
+            .apply(RequestOptions().placeholder(R.drawable.ic_back_icon).centerCrop())
+            .into(PlayerActivity.binding.songImgPA)
+        NowPlaying.binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+
         playMusic()
     }
 
