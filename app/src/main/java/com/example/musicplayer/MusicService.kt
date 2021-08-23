@@ -73,6 +73,7 @@ class MusicService:Service() {
             PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause_icon)
             PlayerActivity.binding.seekBarPA.progress = 0
             PlayerActivity.binding.seekBarPA.max = PlayerActivity.musicService!!.mediaPlayer!!.duration
+            PlayerActivity.nowPlayingId = PlayerActivity.musicListPA[PlayerActivity.songPosition].id
         } catch (e: Exception){return}
     }
     fun seekBarSetup(){

@@ -34,6 +34,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         var min15: Boolean = false
         var min30: Boolean = false
         var min60: Boolean = false
+        var nowPlayingId: String = ""
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,6 +141,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             binding.seekBarPA.progress = 0
             binding.seekBarPA.max = musicService!!.mediaPlayer!!.duration
             musicService!!.mediaPlayer!!.setOnCompletionListener(this)
+            nowPlayingId = musicListPA[songPosition].id
         } catch (e: Exception){return}
     }
     private fun initializeLayout(){
@@ -151,6 +153,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 binding.tvSeekBarEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
                 binding.seekBarPA.progress = musicService!!.mediaPlayer!!.currentPosition
                 binding.seekBarPA.max = musicService!!.mediaPlayer!!.duration
+                if(isPlaying) binding.playPauseBtn.setIconResource(R.drawable.ic_pause_icon)
+                else binding.playPauseBtn.setIconResource(R.drawable.ic_play_icon)
 
             }
             "MusicAdapterSearch"-> {
