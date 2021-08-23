@@ -11,7 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.FavouriteViewBinding
 import com.example.musicplayer.databinding.MusicViewBinding
 
-class FavouriteAdapter(private var context: Context, private var musicList: ArrayList<String>) : RecyclerView.Adapter<FavouriteAdapter.MyHolder>() {
+class FavouriteAdapter(private var context: Context, private var musicList: ArrayList<Music>) : RecyclerView.Adapter<FavouriteAdapter.MyHolder>() {
     class MyHolder(binding: FavouriteViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val image = binding.songImgFV
         val name = binding.songNameFV
@@ -22,7 +22,11 @@ class FavouriteAdapter(private var context: Context, private var musicList: Arra
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        holder.name.text = musicList[position]
+        holder.name.text = musicList[position].title
+        Glide.with(context)
+            .load(musicList[position].artUri)
+            .apply(RequestOptions().placeholder(R.drawable.ic_back_icon).centerCrop())
+            .into(holder.image)
     }
 
     override fun getItemCount(): Int {

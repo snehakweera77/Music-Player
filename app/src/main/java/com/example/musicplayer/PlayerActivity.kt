@@ -35,6 +35,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         var min30: Boolean = false
         var min60: Boolean = false
         var nowPlayingId: String = ""
+        var isFavourite:Boolean = false
+        var fIndex: Int = -1
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,8 +116,21 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(musicListPA[songPosition].path))
             startActivity(Intent.createChooser(shareIntent, "Sharing Music File"))
         }
+        binding.favouriteBtnPA.setOnClickListener {
+            if (isFavourite) {
+                binding.favouriteBtnPA.setImageResource(R.drawable.ic_favorite_empty_icon)
+                isFavourite = false
+                FavouriteActivity.favouriteSongs.removeAt(fIndex)
+            }
+            else{
+                binding.favouriteBtnPA.setImageResource(R.drawable.ic_favorite_icon)
+                isFavourite = true
+                FavouriteActivity.favouriteSongs.add(musicListPA[songPosition])
+            }
+        }
         }
     private fun setLayout() {
+        fIndex = favouriteChecker(musicListPA[songPosition].id)
         Glide.with(this)
             .load(musicListPA[songPosition].artUri)
             .apply(RequestOptions().placeholder(R.drawable.ic_back_icon).centerCrop())
@@ -124,6 +139,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         if (repeat) binding.repeatBtnPA.setColorFilter((ContextCompat.getColor(this, R.color.purple_500)))
         if (min15 || min30 || min60)
             binding.timerBtnPA.setColorFilter(ContextCompat.getColor(this, R.color.purple_500))
+        if (isFavourite) binding.favouriteBtnPA.setImageResource(R.drawable.ic_favorite_icon)
+        else binding.favouriteBtnPA.setImageResource(R.drawable.ic_favorite_empty_icon)
 
     }
     private fun createMediaPlayer(){

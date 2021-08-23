@@ -46,7 +46,8 @@
         android:layout_height="wrap_content"
         android:scrollbarTrackVertical="@drawable/ic_scroll_bar"
         android:scrollbars="vertical"
-        android:paddingBottom="40dp"/>
+        android:paddingBottom="40dp"
+        android:layout_marginTop="10dp"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
