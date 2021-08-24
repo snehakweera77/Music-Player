@@ -164,6 +164,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     private fun initializeLayout(){
         PlayerActivity.songPosition = intent.getIntExtra("index", 0)
         when(intent.getStringExtra("class")){
+            "FavouriteShuffle" -> {
+                val intent = Intent(this, MusicService::class.java)
+                bindService(intent, this, BIND_AUTO_CREATE)
+                startService(intent)
+                musicListPA = ArrayList()
+                musicListPA.addAll(FavouriteActivity.favouriteSongs)
+                musicListPA.shuffle()
+                setLayout()
+            }
             "FavouriteAdapter" -> {
                 val intent = Intent(this, MusicService::class.java)
                 bindService(intent, this, BIND_AUTO_CREATE)
