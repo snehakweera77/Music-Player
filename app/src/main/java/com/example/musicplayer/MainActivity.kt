@@ -20,6 +20,8 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicplayer.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -42,8 +44,18 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //requestRunTimePermission()
-        if(requestRunTimePermission())
+        if(requestRunTimePermission()) {
             initializeLayout()
+            FavouriteActivity.favouriteSongs = ArrayList()
+            val editor = getSharedPreferences("FAVOURITES", MODE_PRIVATE)
+            val jsonString = editor.getString("FavouriteSongs", null)
+            val typeToken = object  : TypeToken<ArrayList<Music>>(){}.type
+            if (jsonString != null) {
+                val data : ArrayList<Music> = GsonBuilder().create().fromJson(jsonString, typeToken)
+                FavouriteActivity.favouriteSongs.addAll(data)
+            }
+        }
+
          binding.shuffleBtn.setOnClickListener{
              val intent = Intent(this@MainActivity, PlayerActivity::class.java)
              intent.putExtra("index", 0)
@@ -156,6 +168,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val editor = getSharedPreferences("FAVOURITES", MODE_PRIVATE).edit()
+        val jsonString = GsonBuilder().create().toJson(FavouriteActivity.favouriteSongs)
+        editor.putString("FavouriteSongs", jsonString)
+        editor.apply()
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_view_menu, menu)
         val searchView = menu?.findItem(R.id.searchView)?.actionView as SearchView
