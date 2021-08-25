@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.FavouriteViewBinding
-import com.example.musicplayer.databinding.MusicViewBinding
 
 class FavouriteAdapter(private var context: Context, private var musicList: ArrayList<Music>) : RecyclerView.Adapter<FavouriteAdapter.MyHolder>() {
     class MyHolder(binding: FavouriteViewBinding) : RecyclerView.ViewHolder(binding.root) {
