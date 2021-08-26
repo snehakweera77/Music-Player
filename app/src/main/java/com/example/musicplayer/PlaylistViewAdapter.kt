@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.PlaylistViewBinding
 
-class PlaylistViewAdapter(private var context: Context, private var playlistList: ArrayList<String>) : RecyclerView.Adapter<PlaylistViewAdapter.MyHolder>() {
+class PlaylistViewAdapter(private var context: Context, private var playlistList: ArrayList<Playlist>) : RecyclerView.Adapter<PlaylistViewAdapter.MyHolder>() {
     class MyHolder(binding: PlaylistViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val image = binding.playlistImg
         val name = binding.playlistName
@@ -22,11 +22,16 @@ class PlaylistViewAdapter(private var context: Context, private var playlistList
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-        holder.name.text = playlistList[position]
+        holder.name.text = playlistList[position].name
         holder.name.isSelected = true
         }
 
     override fun getItemCount(): Int {
         return playlistList.size
+    }
+    fun refreshPlaylist(){
+        playlistList = ArrayList()
+        playlistList.addAll(PlaylistActivity.musicPlaylist.ref)
+        notifyDataSetChanged()
     }
 }
