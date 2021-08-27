@@ -29,5 +29,6 @@
     <string name="playlist_name">Playlist Name</string>
     <string name="playlist_delete">Delete</string>
     <string name="user_name">Sneha</string>
-
+    <string name="add_song">add</string>
+    <string name="remove_all">Remove All</string>
 </resources>
