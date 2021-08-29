@@ -224,6 +224,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 musicListPA.addAll(PlaylistActivity.musicPlaylist.ref[PLaylistDetails.currentPlaylistPos].playlist)
                 setLayout()
             }
+            "PlaylistDetailsShuffle" -> {
+                val intent = Intent(this, MusicService::class.java)
+                bindService(intent, this, BIND_AUTO_CREATE)
+                startService(intent)
+                musicListPA = ArrayList()
+                musicListPA.addAll(PlaylistActivity.musicPlaylist.ref[PLaylistDetails.currentPlaylistPos].playlist)
+                musicListPA.shuffle()
+                setLayout()
+            }
     }
 }
 private fun playMusic() {

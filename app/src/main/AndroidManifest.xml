@@ -15,7 +15,12 @@
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
-        <activity android:name=".PLaylistDetails"></activity>
+        <activity android:name=".SelectionActivity">
+            android:screenOrientation="portrait"
+        </activity>
+        <activity android:name=".PLaylistDetails">
+            android:screenOrientation="portrait"
+        </activity>
         <activity
             android:name=".PlaylistActivity"
             android:screenOrientation="portrait"
@@ -30,6 +35,8 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
+
             android:theme="@style/splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
