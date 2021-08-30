@@ -28,6 +28,9 @@ class MusicService:Service() {
         }
     }
     fun showNotification(playPauseBtn: Int){
+        val intent = Intent(baseContext, MainActivity::class.java)
+        val contentIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
         val prevIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(ApplicationClass.PREVIOUS)
         val prevPendingIntent = PendingIntent.getBroadcast(baseContext, 0, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -46,6 +49,7 @@ class MusicService:Service() {
         else
             BitmapFactory.decodeResource(resources, R.drawable.splash_screen)
         val notification = NotificationCompat.Builder(baseContext, ApplicationClass.CHANNEL_ID)
+            .setContentIntent(contentIntent)
             .setContentTitle(PlayerActivity.musicListPA[PlayerActivity.songPosition].title)
             .setContentText(PlayerActivity.musicListPA[PlayerActivity.songPosition].artist)
             .setSmallIcon(R.drawable.ic_music_icon)
