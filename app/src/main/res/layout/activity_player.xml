@@ -134,7 +134,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_repeat_icon"
             android:background="@android:color/transparent"
-            app:tint="@color/pink"
+            app:tint="?attr/themeColor"
             android:layout_weight="1"
             android:contentDescription="@string/repeat_btn"
             tools:ignore="NestedWeights" />
@@ -144,7 +144,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_equalizer_icon"
             android:background="@android:color/transparent"
-            app:tint="@color/pink"
+            app:tint="?attr/themeColor"
             android:layout_weight="1"
             android:contentDescription="@string/equalizer_btn" />
         <ImageButton
@@ -153,7 +153,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_timer_icon"
             android:background="@android:color/transparent"
-            app:tint="@color/pink"
+            app:tint="?attr/themeColor"
             android:layout_weight="1"
             android:contentDescription="@string/timer_btn" />
         <ImageButton
@@ -162,7 +162,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_share_icon"
             android:background="@android:color/transparent"
-            app:tint="@color/pink"
+            app:tint="?attr/themeColor"
             android:layout_weight="1"
             android:contentDescription="@string/share_btn" />
     </LinearLayout>

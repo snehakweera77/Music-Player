@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/pink">
+        android:background="?attr/themeColor">
 
         <ImageButton
             android:id="@+id/backBtnPLA"
@@ -55,9 +55,9 @@
         app:backgroundTint="@color/white"
         app:icon="@drawable/ic_add_icon"
         app:iconSize="35dp"
-        app:iconTint="@color/pink"
+        app:iconTint="?attr/themeColor"
         app:strokeWidth="2dp"
-        app:strokeColor="@color/pink"
+        app:strokeColor="?attr/themeColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

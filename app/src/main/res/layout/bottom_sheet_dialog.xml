@@ -14,7 +14,7 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_timer_icon"
             android:layout_margin="8dp"
-            app:tint="@color/pink"
+            app:tint="?attr/themeColor"
             android:contentDescription="@string/min_15"/>
         <TextView
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_timer_icon"
             android:layout_margin="8dp"
-            app:tint="@color/pink"
+            app:tint="?attr/themeColor"
             android:contentDescription="@string/min_30"/>
         <TextView
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_timer_icon"
             android:layout_margin="8dp"
-            app:tint="@color/pink"
+            app:tint="?attr/themeColor"
             android:contentDescription="@string/min_60"/>
         <TextView
             android:layout_width="match_parent"

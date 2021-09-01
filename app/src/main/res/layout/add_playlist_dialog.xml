@@ -7,11 +7,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/pink"
+        app:boxStrokeColor="?attr/themeColor"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
         app:endIconDrawable="@drawable/ic_playlist_icon"
-        app:errorIconTint="@color/pink"
+        app:errorIconTint="?attr/themeColor"
         android:hint="@string/playlist_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -25,11 +25,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/pink"
+        app:boxStrokeColor="?attr/themeColor"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
         app:endIconDrawable="@drawable/ic_playlist_icon"
-        app:errorIconTint="@color/pink"
+        app:errorIconTint="?attr/themeColor"
         android:hint="@string/user_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
