@@ -2,14 +2,14 @@ package com.example.musicplayer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.musicplayer.databinding.ActivitySettingsBinding
+import com.example.musicplayer.databinding.ActivityFeedbackBinding
 
-class SettingsActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySettingsBinding
+class FeedbackActivity : AppCompatActivity() {
+    lateinit var binding: ActivityFeedbackBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.coolPinkNav)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        binding = ActivityFeedbackBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.title = "Settings"
     }

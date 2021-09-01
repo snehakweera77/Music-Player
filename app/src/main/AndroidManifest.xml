@@ -15,11 +15,13 @@
         android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".SelectionActivity">
             android:screenOrientation="portrait"
         </activity>
-        <activity android:name=".PLaylistDetails">
+        <activity android:name=".PlaylistDetails">
             android:screenOrientation="portrait"
         </activity>
         <activity
