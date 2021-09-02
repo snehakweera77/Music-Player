@@ -1,17 +1,15 @@
 package com.example.musicplayer
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.os.Binder
-import android.os.Handler
-import android.os.IBinder
-import android.os.Looper
+import android.os.*
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 
 class MusicService:Service(), AudioManager.OnAudioFocusChangeListener {
@@ -65,6 +63,17 @@ class MusicService:Service(), AudioManager.OnAudioFocusChangeListener {
             .addAction(R.drawable.ic_next_icon, "Next", nextPendingIntent)
             .addAction(R.drawable.ic_exit_icon, "Exit", exitPendingIntent)
             .build()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val playbackSpeed = if(PlayerActivity.isPlaying) 1F else 0F
+            mediaSession.setMetadata(MediaMetadataCompat.Builder()
+                .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, mediaPlayer!!.duration.toLong())
+                .build())
+            val playBackState = PlaybackStateCompat.Builder()
+                .setState(PlaybackStateCompat.STATE_PLAYING, mediaPlayer!!.currentPosition.toLong(), playbackSpeed)
+                .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
+                .build()
+            mediaSession.setPlaybackState(playBackState)
+        }
         startForeground(5, notification)
     }
     fun createMediaPlayer(){
@@ -103,8 +112,8 @@ class MusicService:Service(), AudioManager.OnAudioFocusChangeListener {
         }
         else{
             //play music
-            PlayerActivity.binding.playPauseBtn.setIconResource(R.drawable.pause_icon)
-            NowPlaying.binding.playPauseBtnNP.setIconResource(R.drawable.pause_icon)
+            PlayerActivity.binding.playPauseBtn.setIconResource(R.drawable.ic_pause_icon)
+            NowPlaying.binding.playPauseBtnNP.setIconResource(R.drawable.ic_pause_icon)
             showNotification(R.drawable.ic_pause_icon)
             PlayerActivity.isPlaying = true
             mediaPlayer!!.start()
