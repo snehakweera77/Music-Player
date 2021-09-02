@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var musicAdapter: MusicAdapter
     companion object{
-        val sortOrder: Int = 0
         lateinit var MusicListMA : ArrayList<Music>
         lateinit var musicListSearch : ArrayList<Music>
         var search : Boolean = false
@@ -34,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         val currentTheme = arrayOf(R.style.coolPink, R.style.coolBlue, R.style.coolPurple, R.style.coolGreen, R.style.coolBlack)
         val currentThemeNav = arrayOf(R.style.coolPinkNav, R.style.coolBlueNav, R.style.coolPurpleNav, R.style.coolGreenNav,
             R.style.coolBlackNav)
+        var sortOrder: Int = 0
+        val sortingList = arrayOf(MediaStore.Audio.Media.DATE_ADDED + " DESC", MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.SIZE + " DESC")
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,6 +106,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeLayout() {
         search = false
+        val sortEditor = getSharedPreferences("SORTING", MODE_PRIVATE)
+        sortOrder = sortEditor.getInt("sortOrder", 0)
+
         MusicListMA = getAllAudio()
         binding.musicRV.setHasFixedSize(true)
         binding.musicRV.setItemViewCacheSize(13)
@@ -146,7 +151,7 @@ class MainActivity : AppCompatActivity() {
             MediaStore.Audio.Media.ARTIST,MediaStore.Audio.Media.DURATION,MediaStore.Audio.Media.DATE_ADDED,
             MediaStore.Audio.Media.DATA, MediaStore.Audio.Media.ALBUM_ID)
         val cursor = this.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection,selection,null,
-            MediaStore.Audio.Media.DATE_ADDED +  " DESC", null)
+            sortingList[sortOrder], null)
         if(cursor != null){
             if(cursor.moveToFirst())
                 do {
@@ -185,6 +190,13 @@ class MainActivity : AppCompatActivity() {
         val jsonStringPlaylist = GsonBuilder().create().toJson(PlaylistActivity.musicPlaylist)
         editor.putString("MusicPlaylist", jsonStringPlaylist)
         editor.apply()
+        val sortEditor = getSharedPreferences("SORTING", MODE_PRIVATE)
+        val sortValue = sortEditor.getInt("sortOrder", 0)
+        if(sortOrder != sortValue){
+            sortOrder = sortValue
+            MusicListMA = getAllAudio()
+            musicAdapter.updateMusicList(MusicListMA)
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_view_menu, menu)
